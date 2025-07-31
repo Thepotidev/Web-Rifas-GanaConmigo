@@ -1,0 +1,295 @@
+* {
+    padding: unset;
+    margin: unset;
+    border: unset;
+    outline: unset;
+    text-decoration: unset;
+    list-style: none;
+    box-sizing: border-box;
+}
+
+:root {
+    --margin-page: 10px 60px;
+    --color-background: #F2F2F2;
+    --color-primary: #CCF241;
+    --color-secondary: #393E40;
+    --color-tertiary: #A3BF3F;
+    --color-quaternary: #E5F2B6;
+}
+
+@font-face {
+    font-family: text;
+    src: url(/fonts/Tendang.otf);
+}
+
+body {
+    background-color: var(--color-background);
+}
+
+/* COMIENZO DEL HEADER */
+
+header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 10px 20px;
+    gap: 15px;
+    width: 100%;
+    align-items: center;
+}
+
+.header-logo {
+    flex-shrink: 0;
+}
+
+.header-logo img {
+    width: 80px;
+    height: 80px;
+}
+
+.nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-grow: 1;
+    order: 3;
+    width: 100%;
+}
+
+.nav .nav-btn {
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+    background-color: var(--color-secondary);
+    padding: 8px 15px;
+    border-radius: 30px;
+    color: var(--color-primary);
+    white-space: nowrap;
+}
+
+.socialMedia-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--color-secondary);
+    padding: 4px 8px;
+    border-radius: 30px;
+    flex-shrink: 0;
+    order: 2;
+}
+
+.socialMedia-icons img {
+    width: 16px;
+    height: 16px;
+}
+
+/* --- Media Queries para Pantallas Medianas y Grandes --- */
+@media (min-width: 600px) {
+    header {
+        padding: 10px 40px;
+        justify-content: space-between;
+        gap: 20px;
+    }
+
+    .header-logo img {
+        width: 90px;
+        height: 90px;
+    }
+
+    .nav {
+        flex-grow: 0;
+        width: auto;
+        order: unset;
+    }
+
+    .nav .nav-btn {
+        font-size: 17px;
+        padding: 9px 18px;
+    }
+
+    .socialMedia-icons {
+        gap: 10px;
+        padding: 5px 10px;
+    }
+
+    .socialMedia-icons img {
+        width: 18px;
+        height: 18px;
+    }
+}
+/* --- FIN de Media Queries para Pantallas Medianas y Grandes --- */
+
+/* --- Media Queries para Pantallas de Escritorio --- */
+@media (min-width: 900px) {
+    header {
+        padding: 10px 60px;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+    }
+
+    .header-logo img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .nav .nav-btn {
+        font-size: 18px;
+        padding: 10px 20px;
+    }
+}
+/* --- FIN de Media Queries para Pantallas de Escritorio --- */
+
+/* FIN DEL HEADER */
+
+/* COMIENZO DEL JUMBOTRON 1 */
+
+.jumbotron {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.jumbotron-img {
+    display: flex;
+    max-width: 100%;
+    flex: 1;
+}
+
+.jumbotron-img img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 30px;
+    display: block;
+}
+
+.jumbotron-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    text-align: center;
+    max-width: 100%;
+}
+
+.jumbotron-info .fecha-hora {
+    font-family: sans-serif;
+    font-size: 18px;
+    color: var(--color-quaternary);
+    background-color: var(--color-secondary);
+    padding: 5px 10px;
+    border-radius: 30px;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.progress-bar {
+    width: 90%;
+    height: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    margin: 0 auto;
+}
+
+.progress-bar h2 {
+    font-family: sans-serif;
+    font-size: 14px;
+    color: var(--color-secondary);
+    text-align: center;
+}
+
+.progress-bar .progress {
+    width: 0%;
+    height: 100%;
+    background-color: var(--color-tertiary);
+    outline: var(--color-secondary) solid 2px;
+    border-radius: 30px;
+    display: flex;
+    padding-left: 5px;
+}
+
+.jumbotron-info h1 {
+    font-family: text;
+    font-size: clamp(40px, 5vw, 56px);
+    color: var(--color-primary);
+    background-color: var(--color-secondary);
+    width: fit-content;
+    border-radius: 30px;
+    padding: 10px 20px;
+    margin: 0 auto;
+    line-height: 1.2;
+}
+
+.jumbotron-info .description {
+    font-family: sans-serif;
+    font-size: clamp(16px, 2vw, 20px);
+    color: var(--color-secondary);
+    padding: 0 10px;
+}
+
+/* --- Media Queries para Pantallas Grandes (Tabletas y Escritorio) --- */
+@media (min-width: 768px) {
+    .jumbotron {
+        flex-direction: row;
+        margin: var(--margin-page);
+        text-align: left;
+        align-items: flex-start;
+    }
+
+    .jumbotron-img {
+        flex: 1;
+        max-width: 50%;
+    }
+
+    .jumbotron-info {
+        flex: 1;
+        max-width: 50%;
+        text-align: left;
+        padding-left: 20px;
+    }
+
+    .jumbotron-info .fecha-hora {
+        /* margin: unset; */
+    }
+
+    .progress-bar {
+        width: 80%;
+    }
+
+    .progress-bar .boletos-vendidos {
+        text-align: left;
+    }
+
+    .jumbotron-info h1 {
+        margin: unset;
+    }
+
+    .jumbotron-info .description {
+        padding: 0;
+    }
+}
+/* --- FIN de Media Queries para Pantallas Grandes (Tabletas y Escritorio) --- */
+
+/* Para pantallas de escritorio más grandes (ej. 1024px y más) */
+@media (min-width: 1024px) {
+    .jumbotron-img {
+        flex-basis: 60%;
+        max-width: 60%;
+    }
+
+    .jumbotron-info {
+        flex-basis: 40%;
+        max-width: 40%;
+    }
+}
+/* FIN de Para pantallas de escritorio más grandes (ej. 1024px y más) */
+
+/* FIN DEL JUMBOTRON 1 */
