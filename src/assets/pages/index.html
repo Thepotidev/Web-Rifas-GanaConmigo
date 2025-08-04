@@ -23,7 +23,7 @@
     <header class="header">
 
         <div class="header-logo">
-            <img src="/src/assets/images/Logo Web-Rifas.png" alt="Logo de Gana Conmigo by @Thepotii">
+            <a href="index.html"><img src="/src/assets/images/Logo Web-Rifas.png" alt="Logo de Gana Conmigo by @Thepotii"></a>
         </div>
 
         <nav class="nav">
@@ -37,25 +37,39 @@
         </div>
 
     </header>
+    <!-- FIN del HEADER -->
 
     <!-- JUMBOTRON -->
     <section class="jumbotron">
 
         <div class="jumbotron-img">
-            <img src="/src/assets/images/Imagen de prueba.png" alt="Rifa en curso">
+
+            <img id="jumbotron-img" src="/src/assets/images/Imagen de prueba.png" alt="Rifa en curso">
+
         </div>
 
         <div class="jumbotron-info">
-            <p class="fecha-hora"><strong>Fecha:</strong> 30 AGO 2025 <strong>Hora:</strong> 10:00 PM</p>
+
+            <p class="fecha-hora">
+
+                <strong>Fecha:</strong> <span id="jumbotron-fecha">30 AGO 2025</span>
+                <strong>Hora:</strong> <span id="jumbotron-hora">10:00 PM</span>
+
+            </p>
             
             <div class="progress-bar">
+
                 <h2 class="boletos-vendidos">Boletos vendidos</h2>
-                <div class="progress" style="width: 100%;">100%</div>
+                <div id="jumbotron-progress" class="progress" style="width: 100%;">100%</div>
+
             </div>
 
-            <h1>¡Participa en la Gran Rifa!</h1>
+            <h1 id="jumbotron-titulo">¡Participa en la Gran Rifa!</h1>
 
-            <p class="description">¡Gana un increíble premio participando en nuestra rifa mensual! Compra tus boletos y aumenta tus posibilidades.</p>
+            <a href="#boletos" class="btn-compra-rapida">Compra rápida</a>
+
+            <p id="jumbotron-description" class="description">¡Gana increíbles premios participando en nuestra rifa mensual! Compra tus boletos y aumenta tus posibilidades.</p>
+
         </div>
 
     </section>
@@ -85,6 +99,49 @@
 
     </section>
     <!-- FIN del SLIDER DE LLAMADO A LA ACCIÓN -->
+
+    <!-- ULTIMOS SORTEOS-->
+    <section id="ultimos-sorteos" class="ultimos-sorteos-section">
+
+        <h2>Últimos Sorteos</h2>
+
+        <div class="sorteos-container">
+
+            <a href="sorteo-detalles.html?id=1" class="sorteo-card-link">
+
+                <div class="sorteo-card">
+
+                    <img src="/src/assets/images/Bronco Loco.png" alt="Imagen del Sorteo">
+                    <h3 class="sorteo-titulo">Bronco Loco</h3>
+                    <p class="sorteo-fecha">Fecha: 29/07/2025</p>
+                    <span class="sorteo-estado sold-out">SOLD OUT</span>
+
+                </div>
+
+            </a>
+
+            <a href="sorteo-detalles.html?id=1" class="sorteo-card-link">
+
+                <div class="sorteo-card">
+
+                    <img src="/src/assets/images/Tundra Tuya.png" alt="Imagen del Sorteo">
+                    <h3 class="sorteo-titulo">Tundra Tuya</h3>
+                    <p class="sorteo-fecha">Fecha: 30/06/2025</p>
+                    <span class="sorteo-estado sold-out">SOLD OUT</span>
+
+                </div>
+
+            </a>
+
+        </div>
+
+        <div class="sorteos-navegacion">
+            <button id="sorteos-anterior" class="btn-navegacion">Anterior</button>
+            <button id="sorteos-siguiente" class="btn-navegacion">Siguiente</button>
+        </div>
+
+    </section>
+    <!-- FIN de ULTIMOS SORTEOS-->
 
     <!-- LISTA DE BOLETOS -->
      <section id="boletos" class="boletos-section">
@@ -210,7 +267,7 @@
                     <div class="contacto-info">
 
                         <img src="/src/assets/images/whatsapp.svg">
-                        <p>+58 422 1234567</p>
+                        <p id="admin-whatsapp">+58 422 1234567</p>
 
                     </div>
 
@@ -249,8 +306,11 @@
             </div>
 
         </footer>
+        <!-- FIN del FOOTER -->
     
     <script src="/src/script/boletos.js"></script>
     <script src="/src/script/slider.js"></script>
+    <script src="/src/script/main-sorteo.js"></script>
+    <script src="/src/script/ultimos-sorteos-home.js"></script>
 </body>
 </html>

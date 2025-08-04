@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="Panel de Administración" content="Panel de Administración - Gestión de Sorteos y Boletos.">
+
+    <link rel="icon" href="/src/assets/images/Logo Web-Rifas-favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/src/assets/styles/styles.css"> 
+
+    <link rel="stylesheet" href="/src/assets/styles/admin.css"> 
+
+    <title>Panel de Administración</title>
+
+</head>
+
+<body>
+
+    <header class="admin-header">
+
+        <div class="admin-logo">
+
+            <!-- <img src="/src/assets/images/Logo Web-Rifas.png" alt="Logo de Gana Conmigo by @Thepotii"> -->
+            <h1>Panel de Administración</h1>
+
+        </div>
+
+        <nav class="admin-nav">
+
+            <a href="#gestion-sorteos" class="admin-nav-item active">Gestión de Sorteos</a>
+            <a href="#gestion-pagos" class="admin-nav-item">Gestión de Pagos</a>
+            <a href="#ajustes" class="admin-nav-item">Ajustes</a>
+            <button id="logout-btn" class="admin-nav-item btn-logout">Cerrar Sesión</button>
+
+        </nav>
+
+    </header>
+
+    <main class="admin-main-content">
+
+        <section id="gestion-sorteos" class="admin-section active-section">
+
+            <h2>Gestionar Sorteos</h2>
+
+            <div class="section-actions">
+
+                <button id="btn-nuevo-sorteo" class="admin-btn-primary">Crear Nuevo Sorteo</button>
+
+            </div>
+
+            <div id="form-sorteo-container" class="admin-form-container" style="display: none;">
+
+                <h3><span id="form-sorteo-title">Crear Nuevo</span> Sorteo</h3>
+
+                <form id="form-sorteo" class="admin-form">
+
+                    <div class="form-group">
+
+                        <label for="sorteo-titulo">Título del Sorteo:</label>
+                        <input type="text" id="sorteo-titulo" name="titulo" required maxlength="100">
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="sorteo-descripcion">Descripción:</label>
+                        <textarea id="sorteo-descripcion" name="descripcion" rows="4" required maxlength="500"></textarea>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="sorteo-imagen">Imagen Principal:</label>
+
+                        <input type="file" id="sorteo-imagen" name="imagen" accept="image/*">
+
+                        <small>Max. 2MB. Se recomienda 800x450px.</small>
+
+                        <div id="sorteo-imagen-preview" class="image-preview">
+
+                            <img src="" alt="Vista previa de la imagen" style="display: none;">
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="sorteo-fecha-cierre">Fecha de Cierre:</label>
+                        <input type="date" id="sorteo-fecha-cierre" name="fecha_cierre" required>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="sorteo-hora-cierre">Hora de Cierre:</label>
+                        <input type="time" id="sorteo-hora-cierre" name="hora_cierre" required>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="sorteo-min-boletos">Mín. Boletos por Compra:</label>
+                        <input type="number" id="sorteo-min-boletos" name="min_boletos" min="1" value="1" required>
+
+                    </div>
+                    <div class="form-group">
+
+                        <label for="sorteo-precio-boleto">Precio por Boleto ($):</label>
+                        <input type="number" id="sorteo-precio-boleto" name="precio_boleto" min="0.01" step="0.01" value="2.00" required>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="sorteo-total-boletos">Total de Boletos Disponibles:</label>
+                        <input type="number" id="sorteo-total-boletos" name="total_boletos" min="10" value="10000" required>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="sorteo-estado">Estado del Sorteo:</label>
+
+                        <select id="sorteo-estado" name="estado">
+
+                            <option value="activo">Activo</option>
+                            <option value="finalizado">Finalizado</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="form-actions">
+
+                        <button type="submit" class="admin-btn-primary">Guardar Sorteo</button>
+                        <button type="button" id="btn-cancelar-sorteo" class="admin-btn-secondary">Cancelar</button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+            <h3>Sorteos Existentes</h3>
+
+            <div id="lista-sorteos" class="admin-table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>ID</th>
+                            <th>Título</th>
+                            <th>Fecha Cierre</th>
+                            <th>Vendidos</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+
+                            <td>1</td>
+                            <td>Gran Rifa de Verano</td>
+                            <td>2025-08-30 22:00</td>
+                            <td>100%</td>
+                            <td>Activo</td>
+                            <td>
+                                <button class="admin-btn-small btn-edit" data-id="1">Editar</button>
+                                <button class="admin-btn-small btn-ver-boletos" data-id="1">Ver Boletos</button>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>2</td>
+                            <td>Mega Sorteo de PS5</td>
+                            <td>2025-09-15 18:00</td>
+                            <td>50%</td>
+                            <td>Activo</td>
+                            <td>
+                                <button class="admin-btn-small btn-edit" data-id="2">Editar</button>
+                                <button class="admin-btn-small btn-ver-boletos" data-id="2">Ver Boletos</button>
+                            </td>
+
+                        </tr>
+
+                        </tbody>
+
+                </table>
+
+                <p id="no-sorteos-msg" style="display: none;">No hay sorteos creados aún.</p>
+
+            </div>
+
+        </section>
+
+
+        <section id="gestion-pagos" class="admin-section">
+
+            <h2>Gestionar Pagos</h2>
+
+            <h3>Pagos Pendientes de Verificación</h3>
+
+            <div id="lista-pagos-pendientes" class="admin-table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>ID Pago</th>
+                            <th>Sorteo</th>
+                            <th>Comprador</th>
+                            <th>Boletos</th>
+                            <th>Monto</th>
+                            <th>Ref. Pago</th>
+                            <th>Comprobante</th>
+                            <th>Acciones</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+                        
+                        <tr>
+
+                            <td>PAG001</td>
+                            <td>Gran Rifa de Verano</td>
+                            <td>Carlos V. (04121234567)</td>
+                            <td>10, 11, 12</td>
+                            <td>$6.00</td>
+                            <td>123456</td>
+                            <td><a href="/src/assets/images/placeholder-comprobante.jpg" target="_blank">Ver</a></td>
+                            <td>
+                                <button class="admin-btn-small btn-verify" data-id="PAG001">Verificar</button>
+                                <button class="admin-btn-small btn-reject" data-id="PAG001">Rechazar</button>
+                            </td>
+
+                        </tr>
+
+                        </tbody>
+
+                </table>
+
+                <p id="no-pagos-msg" style="display: none;">No hay pagos pendientes.</p>
+
+            </div>
+
+            <h3>Pagos Verificados Recientes</h3>
+
+            <div id="lista-pagos-verificados" class="admin-table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>ID Pago</th>
+                            <th>Sorteo</th>
+                            <th>Comprador</th>
+                            <th>Monto</th>
+                            <th>Fecha Verif.</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>PAG002</td>
+                            <td>Mega Sorteo PS5</td>
+                            <td>Ana G.</td>
+                            <td>$10.00</td>
+                            <td>2025-08-01</td>
+                        </tr>
+
+                        </tbody>
+
+                </table>
+                
+                <p id="no-pagos-verificados-msg" style="display: none;">No hay pagos verificados recientemente.</p>
+
+            </div>
+
+        </section>
+
+        <section id="ajustes" class="admin-section">
+
+            <h2>Ajustes Generales</h2>
+
+            <form id="form-ajustes" class="admin-form">
+
+                <div class="form-group">
+
+                    <label for="admin-whatsapp">Número de WhatsApp (+58):</label>
+                    <input type="tel" id="admin-whatsapp" name="whatsapp" value="+584241234567">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="admin-binance-email">Email Binance:</label>
+                    <input type="email" id="admin-binance-email" name="binance_email" value="binance@web-rifas.com">
+
+                </div>
+
+                <button type="submit" class="admin-btn-primary">Guardar Ajustes</button>
+
+            </form>
+
+        </section>
+
+    </main>
+
+    <script src="/src/script/admin.js"></script>
+</body>
+</html>
