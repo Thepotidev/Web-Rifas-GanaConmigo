@@ -1,0 +1,12 @@
+{
+  "name": "web-rifas-ganaconmigo",
+  "version": "1.0.0",
+  "description": "Web-Rifas Gana Conmigo made by @thepoti",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

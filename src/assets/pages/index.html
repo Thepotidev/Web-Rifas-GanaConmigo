@@ -11,8 +11,8 @@
     <meta name="description" 
     content="Participa y Gana premios increibles con este sistema web de rifas online, la nueva app-web de @Thepotii.">
 
-    <link rel="icon" href="/src/assets/images/Logo Web-Rifas-favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="/src/assets/styles/styles.css">
+    <link rel="icon" href="/assets/images/Logo Web-Rifas-favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/assets/styles/styles.css">
 
     <title>Gana Conmigo by @Thepotii</title>
 
@@ -23,7 +23,7 @@
     <header class="header">
 
         <div class="header-logo">
-            <a href="index.html"><img src="/src/assets/images/Logo Web-Rifas.png" alt="Logo de Gana Conmigo by @Thepotii"></a>
+            <a href="index.html"><img src="/assets/images/Logo Web-Rifas.png" alt="Logo de Gana Conmigo by @Thepotii"></a>
         </div>
 
         <nav class="nav">
@@ -32,8 +32,8 @@
         </nav>
 
         <div class="socialMedia-icons">
-            <a href="https://www.instagram.com/thepotii" target="_blank"><img src="/src/assets/images/instagram.svg" alt="Instagram"></a>
-            <a href="https://www.tiktok.com/@thepotii?is_from_webapp=1&sender_device=pc" target="_blank"><img src="/src/assets/images/tik-tok.svg" alt="TikTok"></a>
+            <a href="https://www.instagram.com/thepotii" target="_blank"><img src="/assets/images/instagram.svg" alt="Instagram"></a>
+            <a href="https://www.tiktok.com/@thepotii?is_from_webapp=1&sender_device=pc" target="_blank"><img src="/assets/images/tik-tok.svg" alt="TikTok"></a>
         </div>
 
     </header>
@@ -44,7 +44,7 @@
 
         <div class="jumbotron-img">
 
-            <img id="jumbotron-img" src="/src/assets/images/Imagen de prueba.png" alt="Rifa en curso">
+            <img id="jumbotron-img" src="/assets/images/Imagen de prueba.png" alt="Rifa en curso">
 
         </div>
 
@@ -107,11 +107,11 @@
 
         <div class="sorteos-container">
 
-            <a href="sorteo-detalles.html?id=1" class="sorteo-card-link">
+            <a href="/assets/pages/sorteo-detalles.html" class="sorteo-card-link">
 
                 <div class="sorteo-card">
 
-                    <img src="/src/assets/images/Bronco Loco.png" alt="Imagen del Sorteo">
+                    <img src="/assets/images/Bronco Loco.png" alt="Imagen del Sorteo">
                     <h3 class="sorteo-titulo">Bronco Loco</h3>
                     <p class="sorteo-fecha">Fecha: 29/07/2025</p>
                     <span class="sorteo-estado sold-out">SOLD OUT</span>
@@ -120,11 +120,11 @@
 
             </a>
 
-            <a href="sorteo-detalles.html?id=1" class="sorteo-card-link">
+            <a href="/assets/pages/sorteo-detalles.html?id=1" class="sorteo-card-link">
 
                 <div class="sorteo-card">
 
-                    <img src="/src/assets/images/Tundra Tuya.png" alt="Imagen del Sorteo">
+                    <img src="/assets/images/Tundra Tuya.png" alt="Imagen del Sorteo">
                     <h3 class="sorteo-titulo">Tundra Tuya</h3>
                     <p class="sorteo-fecha">Fecha: 30/06/2025</p>
                     <span class="sorteo-estado sold-out">SOLD OUT</span>
@@ -148,19 +148,27 @@
 
         <h2>Elige tus boletos</h2>
 
-        <div class="boletos-selector">
+        <div id="boletos-selector" class="boletos-selector">
             <button id="decrementar" type="button">-</button>
             <input type="number" id="cantidad-boletos" value="1" min="1" max="10000" readonly>
             <button id="incrementar" type="button">+</button>
         </div>
 
-        <p>Total a pagar: <span id="total-pagar">2</span><span class="symbol"> $.</span></p>
+        <p>Total a pagar: <span id="total-pagar"></span><span class="symbol"> $.</span></p>
 
         <input type="number" id="buscar-boleto" placeholder="Buscar número de boleto" min="1" max="10000">
 
         <button id="aleatorio" type="button">Elegir boletos aleatorios</button>
 
-        <div id="boletos-elegidos">
+        <section id="lista-boletos" class="lista-boletos-section">
+
+            <h2>Boletos disponibles</h2>
+
+            <div id="boletos-disponibles-container" class="boletos-disponibles-container"></div>
+
+        </section>
+
+        <div id="boletos-elegidos" class="boletos-elegidos-container">
             <!-- Aquí se mostrarán los boletos seleccionados con opción de eliminar -->
         </div>
 
@@ -172,6 +180,7 @@
         <h2>Datos personales y pago</h2>
 
         <form id="formulario-rifa" enctype="multipart/form-data" autocomplete="off">
+            <input type="hidden" id="sorteo-id" name="sorteo_id" value="1">
 
             <div class="form-group">
                 <label for="nombre">Nombres y Apellidos</label>
@@ -185,7 +194,7 @@
 
             <div class="form-group">
                 <label for="telefono">Teléfono (+58)</label>
-                <input type="tel" id="telefono" name="telefono" required pattern="^\+58\d{10}$" placeholder="+58XXXXXXXXXX">
+                <input type="tel" id="telefono" name="telefono" required placeholder="Número de teléfono">
             </div>
 
             <div class="form-group">
@@ -266,7 +275,7 @@
 
                     <div class="contacto-info">
 
-                        <img src="/src/assets/images/whatsapp.svg">
+                        <img src="/assets/images/whatsapp.svg">
                         <p id="admin-whatsapp">+58 422 1234567</p>
 
                     </div>
@@ -280,11 +289,11 @@
                     <div class="social-icons-container">
 
                         <a href="https://www.instagram.com/thepotii" target="_blank" title="Instagram">
-                            <img src="/src/assets/images/instagram.svg" alt="Instagram">
+                            <img src="/assets/images/instagram.svg" alt="Instagram">
                         </a>
                         
                         <a href="https://www.tiktok.com/@thepotii?is_from_webapp=1&sender_device=pc" target="_blank" title="TikTok">
-                            <img src="/src/assets/images/tik-tok.svg" alt="TikTok">
+                            <img src="/assets/images/tik-tok.svg" alt="TikTok">
                         </a>
 
                     </div>
@@ -296,7 +305,7 @@
                     <h4>Hecho con amor por</h4>
 
                     <a href="https://www.instagram.com/thepotii" target="_blank" title="Instagram">
-                        <img src="/src/assets/images/the poti png-14.png" alt="Instagram">
+                        <img src="/assets/images/the poti png-14.png" alt="Instagram">
                     </a>
 
                     <p>© 2025. Todos los derechos reservados.</p>
@@ -308,9 +317,12 @@
         </footer>
         <!-- FIN del FOOTER -->
     
-    <script src="/src/script/boletos.js"></script>
-    <script src="/src/script/slider.js"></script>
-    <script src="/src/script/main-sorteo.js"></script>
-    <script src="/src/script/ultimos-sorteos-home.js"></script>
+    <script src="/script/boletos.js"></script>
+    <script src="/script/slider.js"></script>
+    <script src="/script/main-sorteo.js"></script>
+    <script src="/script/ultimos-sorteos-home.js"></script>
+
+    <script src="/script/verificador.js"></script>
+    <script src="/script/compra-boletos.js"></script>
 </body>
 </html>

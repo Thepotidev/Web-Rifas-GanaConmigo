@@ -1,189 +1,283 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Selectores de Elementos del DOM ---
-    const decrementarBtn = document.getElementById('decrementar');
-    const incrementarBtn = document.getElementById('incrementar');
-    const cantidadBoletosInput = document.getElementById('cantidad-boletos');
-    const totalPagarSpan = document.getElementById('total-pagar');
-    const buscarBoletoInput = document.getElementById('buscar-boleto');
-    const aleatorioBtn = document.getElementById('aleatorio');
-    const boletosElegidosDiv = document.getElementById('boletos-elegidos');
 
-    // --- Configuración Inicial ---
-    const PRECIO_POR_BOLETO = 2; // Puedes cambiar el precio aquí
-    const MIN_BOLETO = 1;
-    const MAX_BOLETO = 10000;
-    let boletosSeleccionados = new Set(); // Usamos un Set para almacenar boletos únicos
+    const boletosSelector = document.getElementById('boletos-selector');
 
-    // --- Funciones de Lógica ---
+    if (boletosSelector) {
+        const cantidadBoletosInput = document.getElementById('cantidad-boletos');
+        const totalPagarSpan = document.getElementById('total-pagar');
+        const buscarBoletoInput = document.getElementById('buscar-boleto');
+        const aleatorioBtn = document.getElementById('aleatorio');
+        const boletosElegidosDiv = document.getElementById('boletos-elegidos');
+        const listaDeBoletosDisponibles = document.getElementById('lista-de-boletos-disponibles');
 
-    // Función para actualizar el total a pagar
-    function actualizarTotal() {
-        const cantidad = parseInt(cantidadBoletosInput.value);
-        const total = cantidad * PRECIO_POR_BOLETO;
-        totalPagarSpan.textContent = `${total}`;
-    }
+        const PRECIO_POR_BOLETO = 2;
+        const MIN_BOLETO = 0; 
+        const MAX_BOLETO = 9999;
+        window.boletosSeleccionados = window.boletosSeleccionados || [];
 
-    // Función para añadir un boleto individual al DOM
-    function agregarBoletoAlDOM(numeroBoleto) {
-        const boletoItem = document.createElement('div');
-        boletoItem.classList.add('boleto-item');
-        boletoItem.dataset.numero = numeroBoleto; // Guardar el número en un data attribute
-
-        boletoItem.innerHTML = `
-            <span>#${numeroBoleto}</span>
-            <button class="eliminar-boleto" type="button">x</button>
-        `;
-        boletosElegidosDiv.appendChild(boletoItem);
-
-        // Añadir el evento click al botón de eliminar
-        boletoItem.querySelector('.eliminar-boleto').addEventListener('click', () => {
-            eliminarBoleto(numeroBoleto);
-        });
-    }
-
-    // Función para eliminar un boleto
-    function eliminarBoleto(numeroBoleto) {
-        if (boletosSeleccionados.has(numeroBoleto)) {
-            boletosSeleccionados.delete(numeroBoleto);
-            const boletoElement = boletosElegidosDiv.querySelector(`.boleto-item[data-numero="${numeroBoleto}"]`);
-            if (boletoElement) {
-                boletoElement.remove();
-            }
-            // Actualizar la cantidad de boletos en el input si es necesario
-            if (parseInt(cantidadBoletosInput.value) > 1) {
-                cantidadBoletosInput.value = boletosSeleccionados.size;
-                actualizarTotal();
-            } else if (boletosSeleccionados.size === 0) {
-                 cantidadBoletosInput.value = 1; // Resetea a 1 si no hay boletos
-                 actualizarTotal();
-            }
+        function actualizarTotal() {
+            const cantidad = window.boletosSeleccionados.length;
+            const total = cantidad * PRECIO_POR_BOLETO;
+            totalPagarSpan.textContent = `${total}`;
             mostrarMensajeBoletosVacios();
         }
-    }
 
-    // Función para añadir un boleto a la lista
-    function añadirBoleto(numero) {
-        const numeroBoleto = parseInt(numero);
+        function agregarBoletoAlDOM(numeroBoleto) {
+            const boletoItem = document.createElement('div');
+            boletoItem.classList.add('boleto-item');
+            boletoItem.dataset.numero = numeroBoleto;
+            boletoItem.innerHTML = `
+                <span>#${String(numeroBoleto).padStart(4, '0')}</span>
+                <button class="eliminar-boleto" type="button">x</button>
+            `;
+            boletosElegidosDiv.appendChild(boletoItem);
 
-        if (isNaN(numeroBoleto) || numeroBoleto < MIN_BOLETO || numeroBoleto > MAX_BOLETO) {
-            alert(`Por favor, introduce un número de boleto válido entre ${MIN_BOLETO} y ${MAX_BOLETO}.`);
-            return false;
-        }
-
-        if (boletosSeleccionados.has(numeroBoleto)) {
-            alert(`El boleto #${numeroBoleto} ya ha sido seleccionado.`);
-            return false;
-        }
-
-        if (boletosSeleccionados.size >= MAX_BOLETO) { // Limite global de boletos
-            alert(`Has alcanzado el número máximo de boletos (${MAX_BOLETO}) que se pueden seleccionar.`);
-            return false;
-        }
-
-        boletosSeleccionados.add(numeroBoleto);
-        agregarBoletoAlDOM(numeroBoleto);
-        return true;
-    }
-
-    // Función para mostrar un mensaje si no hay boletos seleccionados
-    function mostrarMensajeBoletosVacios() {
-        if (boletosSeleccionados.size === 0 && boletosElegidosDiv.children.length === 0) {
-            const mensaje = document.createElement('p');
-            mensaje.id = 'mensaje-boletos-vacios';
-            mensaje.textContent = 'Aquí aparecerán tus boletos seleccionados.';
-            boletosElegidosDiv.appendChild(mensaje);
-        } else {
-            const mensajeExistente = document.getElementById('mensaje-boletos-vacios');
-            if (mensajeExistente) {
-                mensajeExistente.remove();
-            }
-        }
-    }
-
-
-    // --- Manejadores de Eventos ---
-
-    // Botón de decrementar cantidad
-    decrementarBtn.addEventListener('click', () => {
-        let cantidad = parseInt(cantidadBoletosInput.value);
-        if (cantidad > 1) { // Mínimo 1 boleto
-            cantidad--;
-            cantidadBoletosInput.value = cantidad;
-            actualizarTotal();
-        }
-    });
-
-    // Botón de incrementar cantidad
-    incrementarBtn.addEventListener('click', () => {
-        let cantidad = parseInt(cantidadBoletosInput.value);
-        if (cantidad < MAX_BOLETO) { // Máximo definido para la cantidad en el selector
-            cantidad++;
-            cantidadBoletosInput.value = cantidad;
-            actualizarTotal();
-        }
-    });
-
-    // Input de cantidad de boletos (si el usuario lo modifica directamente)
-    cantidadBoletosInput.addEventListener('change', () => {
-        let cantidad = parseInt(cantidadBoletosInput.value);
-        if (isNaN(cantidad) || cantidad < 1) {
-            cantidad = 1;
-        } else if (cantidad > MAX_BOLETO) {
-            cantidad = MAX_BOLETO;
-        }
-        cantidadBoletosInput.value = cantidad;
-        actualizarTotal();
-    });
-
-    // Búsqueda de boleto individual
-    buscarBoletoInput.addEventListener('keypress', (event) => {
-        if (event.key === 'Enter') {
-            event.preventDefault(); // Prevenir el envío de formulario si está dentro de uno
-            const numero = parseInt(buscarBoletoInput.value);
-            if (añadirBoleto(numero)) {
-                // Si el boleto se añadió con éxito, actualizamos la cantidad en el input
-                cantidadBoletosInput.value = boletosSeleccionados.size;
+            boletoItem.querySelector('.eliminar-boleto').addEventListener('click', () => {
+                eliminarBoleto(numeroBoleto);
                 actualizarTotal();
-                buscarBoletoInput.value = ''; // Limpiar input
+            });
+        }
+
+        function eliminarBoleto(numeroBoleto) {
+            numeroBoleto = Number(numeroBoleto);
+            const idx = window.boletosSeleccionados.indexOf(numeroBoleto);
+            if (idx !== -1) {
+                window.boletosSeleccionados.splice(idx, 1);
+                const boletoElement = boletosElegidosDiv.querySelector(`.boleto-item[data-numero="${numeroBoleto}"]`);
+                if (boletoElement) boletoElement.remove();
+                
+                const boletoCard = listaDeBoletosDisponibles.querySelector(`.boleto-card[data-numero="${numeroBoleto}"]`);
+                if (boletoCard) {
+                    boletoCard.classList.remove('seleccionado');
+                }
                 mostrarMensajeBoletosVacios();
             }
         }
-    });
 
-    // Botón "Elegir boletos aleatorios"
-    aleatorioBtn.addEventListener('click', () => {
-        const cantidadDeseada = parseInt(cantidadBoletosInput.value);
-        let boletosGenerados = 0;
-        let intentos = 0; // Para evitar bucles infinitos si hay pocos boletos disponibles
-
-        // Eliminar boletos existentes para reemplazarlos por los aleatorios si se desea
-        boletosSeleccionados.clear();
-        boletosElegidosDiv.innerHTML = '';
-
-
-        while (boletosGenerados < cantidadDeseada && intentos < (MAX_BOLETO * 2)) { // Limitar intentos
-            const nuevoBoleto = Math.floor(Math.random() * (MAX_BOLETO - MIN_BOLETO + 1)) + MIN_BOLETO;
-            if (añadirBoleto(nuevoBoleto)) { // añadirBoleto ya maneja duplicados y validación
-                boletosGenerados++;
+        function añadirBoleto(numero) {
+            const numeroBoleto = parseInt(numero);
+            if (isNaN(numeroBoleto) || numeroBoleto < MIN_BOLETO || numeroBoleto > MAX_BOLETO) {
+                alert(`Por favor, introduce un número de boleto válido entre ${MIN_BOLETO} y ${MAX_BOLETO}.`);
+                return false;
             }
-            intentos++;
-        }
-        // Actualizar la cantidad de boletos en el input y el total
-        cantidadBoletosInput.value = boletosSeleccionados.size;
-        actualizarTotal();
-        mostrarMensajeBoletosVacios();
-    });
+            if (window.boletosSeleccionados.includes(numeroBoleto)) {
+                alert(`El boleto #${String(numeroBoleto).padStart(4, '0')} ya ha sido seleccionado.`);
+                return false;
+            }
+            const cantidadDeseada = parseInt(cantidadBoletosInput.value);
+            if (window.boletosSeleccionados.length >= cantidadDeseada) {
+                alert(`Solo puedes seleccionar ${cantidadDeseada} boletos.`);
+                return false;
+            }
+            
+            window.boletosSeleccionados.push(numeroBoleto);
+            agregarBoletoAlDOM(numeroBoleto);
+            actualizarTotal();
 
-    // --- Inicialización ---
-    actualizarTotal(); // Calcular el total inicial al cargar la página
-    mostrarMensajeBoletosVacios(); // Mostrar el mensaje inicial si no hay boletos
+            const boletoCard = listaDeBoletosDisponibles.querySelector(`.boleto-card[data-numero="${numeroBoleto}"]`);
+            if (boletoCard) {
+                boletoCard.classList.add('seleccionado');
+            }
+            
+            return true;
+        }
+
+        function generarBoletoAleatorioUnico() {
+            const boletosDisponibles = [];
+            for (let i = MIN_BOLETO; i <= MAX_BOLETO; i++) {
+                if (!window.boletosSeleccionados.includes(i)) {
+                    boletosDisponibles.push(i);
+                }
+            }
+            
+            if (boletosDisponibles.length > 0) {
+                const randomIndex = Math.floor(Math.random() * boletosDisponibles.length);
+                return boletosDisponibles[randomIndex];
+            }
+            return null;
+        }
+
+        function mostrarMensajeBoletosVacios() {
+            const mensajeId = 'mensaje-boletos-vacios';
+            let mensajeExistente = document.getElementById(mensajeId);
+            
+            if (window.boletosSeleccionados.length === 0) {
+                if (!mensajeExistente) {
+                    const mensaje = document.createElement('p');
+                    mensaje.id = mensajeId;
+                    mensaje.textContent = 'Aquí aparecerán tus boletos seleccionados.';
+                    boletosElegidosDiv.appendChild(mensaje);
+                }
+            } else {
+                if (mensajeExistente) mensajeExistente.remove();
+            }
+        }
+        
+        function generarTodosLosBoletos() {
+            listaDeBoletosDisponibles.innerHTML = '';
+            for (let i = MIN_BOLETO; i <= MAX_BOLETO; i++) {
+                const boletoCard = document.createElement('div');
+                boletoCard.classList.add('boleto-card');
+                boletoCard.dataset.numero = i;
+                boletoCard.textContent = String(i).padStart(4, '0');
+                
+                boletoCard.addEventListener('click', () => {
+                    if (boletoCard.classList.contains('seleccionado')) {
+                        eliminarBoleto(i);
+                    } else {
+                        añadirBoleto(i);
+                    }
+                });
+                
+                listaDeBoletosDisponibles.appendChild(boletoCard);
+            }
+        }
+
+        // --- Manejadores de Eventos de Compra ---
+
+        cantidadBoletosInput.addEventListener('change', () => {
+            let cantidad = parseInt(cantidadBoletosInput.value);
+            if (isNaN(cantidad) || cantidad < 0) {
+                cantidad = 0;
+            } else if (cantidad > MAX_BOLETO + 1) {
+                cantidad = MAX_BOLETO + 1;
+            }
+            cantidadBoletosInput.value = cantidad;
+        });
+
+        buscarBoletoInput.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                const numero = parseInt(buscarBoletoInput.value);
+                if (añadirBoleto(numero)) {
+                    buscarBoletoInput.value = '';
+                }
+            }
+        });
+
+        aleatorioBtn.addEventListener('click', () => {
+            const cantidadDeseada = parseInt(cantidadBoletosInput.value);
+            
+            window.boletosSeleccionados.forEach(numeroBoleto => {
+                const boletoCard = listaDeBoletosDisponibles.querySelector(`.boleto-card[data-numero="${numeroBoleto}"]`);
+                if (boletoCard) {
+                    boletoCard.classList.remove('seleccionado');
+                }
+            });
+
+            window.boletosSeleccionados = [];
+            boletosElegidosDiv.innerHTML = '';
+            
+            const boletosDisponibles = [];
+            for (let i = MIN_BOLETO; i <= MAX_BOLETO; i++) {
+                boletosDisponibles.push(i);
+            }
+            
+            for (let i = 0; i < cantidadDeseada; i++) {
+                if (boletosDisponibles.length > 0) {
+                    const randomIndex = Math.floor(Math.random() * boletosDisponibles.length);
+                    const nuevoBoleto = boletosDisponibles.splice(randomIndex, 1)[0];
+                    window.boletosSeleccionados.push(nuevoBoleto);
+                    agregarBoletoAlDOM(nuevoBoleto);
+
+                    const boletoCard = listaDeBoletosDisponibles.querySelector(`.boleto-card[data-numero="${nuevoBoleto}"]`);
+                    if (boletoCard) {
+                        boletoCard.classList.add('seleccionado');
+                    }
+                }
+            }
+            
+            actualizarTotal();
+        });
+
+        // --- Inicialización ---
+        generarTodosLosBoletos();
+        actualizarTotal();
+    } 
+    
+    // --- ENVÍO DEL FORMULARIO ---
+    const formularioRifa = document.getElementById('formulario-rifa');
+
+    if (formularioRifa) {
+        formularioRifa.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const boletosElegidosDiv = document.getElementById('boletos-elegidos');
+            const boletosSeleccionados = window.boletosSeleccionados || [];
+
+            if (boletosSeleccionados.length === 0) {
+                alert('Por favor, selecciona al menos un boleto antes de enviar.');
+                return;
+            }
+
+            const formData = new FormData(formularioRifa);
+            formData.append('boletos', JSON.stringify(boletosSeleccionados));
+
+            // Aquí puedes cambiar la URL a la que envía el formulario
+            const url = '/api/compras';
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    alert('¡Compra exitosa! Tu registro ha sido enviado.');
+                    formularioRifa.reset();
+                    window.boletosSeleccionados = [];
+                    boletosElegidosDiv.innerHTML = '';
+                    actualizarTotal();
+                } else {
+                    alert(`Error en el registro: ${data.message}`);
+                }
+            } catch (error) {
+                console.error('Error al enviar el formulario:', error);
+                alert('Ocurrió un error inesperado. Por favor, intenta de nuevo.');
+            }
+        });
+    }
+
+    const verificadorForm = document.getElementById('form-verificador');
+
+    if (verificadorForm) {
+        const verificarBoletoInput = document.getElementById('verificar-boleto');
+        const resultadoDiv = document.getElementById('resultado-verificador');
+
+        verificadorForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const valorBusqueda = verificarBoletoInput.value;
+            if (!valorBusqueda) {
+                resultadoDiv.innerHTML = '<p class="error">Por favor, introduce un número de teléfono o de boleto valido.</p>';
+                return;
+            }
+            resultadoDiv.innerHTML = '<p>Buscando...</p>';
+            try {
+                const response = await fetch(`/api/verificador?q=${valorBusqueda}`);
+                const data = await response.json();
+                if (data.success) {
+                    resultadoDiv.innerHTML = `
+                        <p class="success"><strong>Boleto encontrado:</strong> #${data.boleto}</p>
+                        <p><strong>Titular:</strong> ${data.titular}</p>
+                    `;
+                } else {
+                    resultadoDiv.innerHTML = `<p class="error">No se encontró el boleto o el teléfono.</p>`;
+                }
+            } catch (error) {
+                console.error('Error al verificar el boleto:', error);
+                resultadoDiv.innerHTML = `<p class="error">Ocurrió un error al verificar. Intenta de nuevo.</p>`;
+            }
+        });
+    }
 });
 
-// --- Fin del Código de boletos ---
-
-// Función para copiar datos al portapapeles
 function copiarDato(id) {
-    const texto = document.getElementById(id).textContent;
-    navigator.clipboard.writeText(texto);
-    alert('¡Dato copiado!');
+    const elemento = document.getElementById(id);
+    if (elemento) {
+        const texto = elemento.textContent;
+        navigator.clipboard.writeText(texto);
+        alert('¡Dato copiado!');
+    }
 }

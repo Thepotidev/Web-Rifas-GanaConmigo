@@ -191,3 +191,39 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     loadSoldTickets(); // Cargar al inicio
 });
+
+async function cargarSorteos() {
+    const res = await fetch('/api/sorteos', {
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('adminToken')
+        }
+    });
+    const data = await res.json();
+    if (res.ok) {
+        // Renderiza los sorteos en tu panel
+        console.log('Sorteos:', data.sorteos);
+    } else {
+        alert(data.error || 'No autorizado');
+        if (res.status === 401 || res.status === 403) {
+            window.location.href = '/src/assets/pages/admin_login.html';
+        }
+    }
+}
+
+async function cargarPagos() {
+    const res = await fetch('/api/pagos', {
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('adminToken')
+        }
+    });
+    const data = await res.json();
+    if (res.ok) {
+        // Renderiza los pagos en tu panel
+        console.log('Pagos:', data.pagos);
+    } else {
+        alert(data.error || 'No autorizado');
+        if (res.status === 401 || res.status === 403) {
+            window.location.href = '/src/assets/pages/admin_login.html';
+        }
+    }
+}

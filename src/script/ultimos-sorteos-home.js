@@ -8,14 +8,14 @@ document.addEventListener('DOMContentLoaded', () => {
             id: '1',
             titulo: 'Bronco Loco',
             fecha: '29/07/2025',
-            imagen: '/src/assets/images/Bronco Loco.png', 
+            imagen: '/assets/images/Bronco Loco.png', 
             estado: 'sold out'
         },
         {
             id: '2',
             titulo: 'Tundra Tuya',
             fecha: '30/06/2025',
-            imagen: '/src/assets/images/Tundra Tuya.png',
+            imagen: '/assets/images/Tundra Tuya.png',
             estado: 'sold out'
         },
         // Puedes agregar más sorteos finalizados aquí para la demostración
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     finalizadosData.forEach(sorteo => {
         const cardLink = document.createElement('a');
         // El href apunta a la página de detalles con el ID del sorteo
-        cardLink.href = `sorteo-detalles.html?id=${sorteo.id}`; 
+        cardLink.href = `/assets/pages/sorteo-detalles.html?id=${sorteo.id}`; 
         cardLink.classList.add('sorteo-card-link');
 
         cardLink.innerHTML = `

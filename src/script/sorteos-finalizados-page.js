@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
             id: '1',
             titulo: 'Bronco Loco',
             descripcion: 'Ganate esta increíble camioneta 0km, ideal para la aventura.',
-            imagen: '/src/assets/images/Bronco Loco.png',
+            imagen: '/assets/images/Bronco Loco.png',
             fecha: '29/07/2025',
             hora: '10:00 AM',
             estado: 'sold-out',
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
             id: '2',
             titulo: 'Tundra Tuya',
             descripcion: 'Tu oportunidad de llevarte una potente Tundra 0km.',
-            imagen: '/src/assets/images/Tundra Tuya.png',
+            imagen: '/assets/images/Tundra Tuya.png',
             fecha: '30/06/2025',
             hora: '08:00 PM',
             estado: 'sold-out',
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         // Si no hay ID en la URL o el sorteo no se encuentra
         if (pageTitleElement) pageTitleElement.textContent = 'Sorteo No Encontrado';
-        if (sorteoDetalleImg) sorteoDetalleImg.src = '/src/assets/images/placeholder-error.jpg'; // Imagen de error
+        if (sorteoDetalleImg) sorteoDetalleImg.src = '/assets/images/placeholder-jumbotron-detalle.jpg'; // Imagen de error
         if (sorteoDetalleTitulo) sorteoDetalleTitulo.textContent = 'Sorteo No Encontrado';
         if (sorteoDetalleDescription) sorteoDetalleDescription.textContent = 'Lo sentimos, el sorteo solicitado no pudo ser encontrado o no existe.';
         
