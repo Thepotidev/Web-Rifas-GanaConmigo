@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="description" 
+    content="Participa y Gana premios increibles con este sistema web de rifas online, la nueva app-web de @Thepotii.">
+
+    <link rel="icon" href="/assets/images/Logo Web-Rifas-favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/assets/styles/styles.css">
+
+    <title>Gana Conmigo by @Thepotii</title>
+
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header class="header">
+
+        <div class="header-logo">
+            <a href="index.html"><img src="/assets/images/Logo Web-Rifas.png" alt="Logo de Gana Conmigo by @Thepotii"></a>
+        </div>
+
+        <nav class="nav">
+            <a href="#boletos" class="nav-btn">Lista de Boletos</a>
+            <a href="#verificador" class="nav-btn">Verificador de Boletos</a>
+        </nav>
+
+        <div class="socialMedia-icons">
+            <a href="https://www.instagram.com/thepotii" target="_blank"><img src="/assets/images/instagram.svg" alt="Instagram"></a>
+            <a href="https://www.tiktok.com/@thepotii?is_from_webapp=1&sender_device=pc" target="_blank"><img src="/assets/images/tik-tok.svg" alt="TikTok"></a>
+        </div>
+
+    </header>
+    <!-- FIN del HEADER -->
+
+    <!-- JUMBOTRON -->
+    <section class="jumbotron">
+
+        <div class="jumbotron-img">
+
+            <img id="jumbotron-img" src="/assets/images/Imagen de prueba.png" alt="Rifa en curso">
+
+        </div>
+
+        <div class="jumbotron-info">
+
+            <p class="fecha-hora">
+
+                <strong>Fecha:</strong> <span id="jumbotron-fecha">30 AGO 2025</span>
+                <strong>Hora:</strong> <span id="jumbotron-hora">10:00 PM</span>
+
+            </p>
+            
+            <div class="progress-bar">
+
+                <h2 class="boletos-vendidos">Boletos vendidos</h2>
+                <div id="jumbotron-progress" class="progress" style="width: 100%;">100%</div>
+
+            </div>
+
+            <h1 id="jumbotron-titulo">¡Participa en la Gran Rifa!</h1>
+
+            <a href="#boletos" class="btn-compra-rapida">Compra rápida</a>
+
+            <p id="jumbotron-description" class="description">¡Gana increíbles premios participando en nuestra rifa mensual! Compra tus boletos y aumenta tus posibilidades.</p>
+
+        </div>
+
+    </section>
+    <!-- FIN del JUMBOTRON -->
+
+    <!-- SLIDER DE LLAMADO A LA ACCIÓN -->
+    <section class="slider-cta">
+
+        <div class="slider-container">
+
+            <div class="slide active">
+                <h2>¡Aumenta tus oportunidades!</h2>
+                <p>Mientras más boletos compres, más chances tienes de ganar.</p>
+            </div>
+
+            <div class="slide">
+                <h2>¡Premios garantizados!</h2>
+                <p>Participa y podrías ser el próximo ganador de increíbles premios.</p>
+            </div>
+            
+            <div class="slide">
+                <h2>¡Compra fácil y seguro!</h2>
+                <p>Elige tus boletos, paga y listo. ¡Así de simple!</p>
+            </div>
+
+        </div>
+
+    </section>
+    <!-- FIN del SLIDER DE LLAMADO A LA ACCIÓN -->
+
+    <!-- ULTIMOS SORTEOS-->
+    <section id="ultimos-sorteos" class="ultimos-sorteos-section">
+
+        <h2>Últimos Sorteos</h2>
+
+        <div class="sorteos-container">
+
+            <a href="/assets/pages/sorteo-detalles.html" class="sorteo-card-link">
+
+                <div class="sorteo-card">
+
+                    <img src="/assets/images/Bronco Loco.png" alt="Imagen del Sorteo">
+                    <h3 class="sorteo-titulo">Bronco Loco</h3>
+                    <p class="sorteo-fecha">Fecha: 29/07/2025</p>
+                    <span class="sorteo-estado sold-out">SOLD OUT</span>
+
+                </div>
+
+            </a>
+
+            <a href="/assets/pages/sorteo-detalles.html?id=1" class="sorteo-card-link">
+
+                <div class="sorteo-card">
+
+                    <img src="/assets/images/Tundra Tuya.png" alt="Imagen del Sorteo">
+                    <h3 class="sorteo-titulo">Tundra Tuya</h3>
+                    <p class="sorteo-fecha">Fecha: 30/06/2025</p>
+                    <span class="sorteo-estado sold-out">SOLD OUT</span>
+
+                </div>
+
+            </a>
+
+        </div>
+
+        <div class="sorteos-navegacion">
+            <button id="sorteos-anterior" class="btn-navegacion">Anterior</button>
+            <button id="sorteos-siguiente" class="btn-navegacion">Siguiente</button>
+        </div>
+
+    </section>
+    <!-- FIN de ULTIMOS SORTEOS-->
+
+    <!-- LISTA DE BOLETOS -->
+     <section id="boletos" class="boletos-section">
+
+        <h2>Elige tus boletos</h2>
+
+        <div id="boletos-selector" class="boletos-selector">
+            <button id="decrementar" type="button">-</button>
+            <input type="number" id="cantidad-boletos" value="1" min="1" max="10000" readonly>
+            <button id="incrementar" type="button">+</button>
+        </div>
+
+        <p>Total a pagar: <span id="total-pagar"></span><span class="symbol"> $.</span></p>
+
+        <input type="number" id="buscar-boleto" placeholder="Buscar número de boleto" min="1" max="10000">
+
+        <button id="aleatorio" type="button">Elegir boletos aleatorios</button>
+
+        <section id="lista-boletos" class="lista-boletos-section">
+
+            <h2>Boletos disponibles</h2>
+
+            <div id="boletos-disponibles-container" class="boletos-disponibles-container"></div>
+
+        </section>
+
+        <div id="boletos-elegidos" class="boletos-elegidos-container">
+            <!-- Aquí se mostrarán los boletos seleccionados con opción de eliminar -->
+        </div>
+
+     </section>
+     <!-- FIN de la LISTA DE BOLETOS -->
+
+     <!-- FORMULARIO DE DATOS PERSONALES Y REGISTRO DE PAGO -->
+      <section class="formulario-section">
+        <h2>Datos personales y pago</h2>
+
+        <form id="formulario-rifa" enctype="multipart/form-data" autocomplete="off">
+            <input type="hidden" id="sorteo-id" name="sorteo_id" value="1">
+
+            <div class="form-group">
+                <label for="nombre">Nombres y Apellidos</label>
+                <input type="text" id="nombre" name="nombre" required maxlength="60">
+            </div>
+
+            <div class="form-group">
+                <label for="cedula">Cédula</label>
+                <input type="number" id="cedula" name="cedula" required pattern="\d+" maxlength="10">
+            </div>
+
+            <div class="form-group">
+                <label for="telefono">Teléfono (+58)</label>
+                <input type="tel" id="telefono" name="telefono" required placeholder="Número de teléfono">
+            </div>
+
+            <div class="form-group">
+                <label for="referencia">Referencia de pago (ultimos 6 dígitos)</label>
+                <input type="number" id="referencia" name="referencia" required pattern="\d{6}" maxlength="6">
+            </div>
+
+            <h3>Método de pago</h3>
+
+            <div class="metodo-pago">
+
+                <div class="pago-datos">
+                    <p><strong>Teléfono:</strong> <span id="pago-telefono">+58 123-4567890</span> <button type="button" onclick="copiarDato('pago-telefono')">Copiar</button></p>
+                    <p><strong>Cédula:</strong> <span id="pago-cedula">12345678</span> <button type="button" onclick="copiarDato('pago-cedula')">Copiar</button></p>
+                    <p><strong>Banco:</strong> <span id="pago-banco">Banco Ejemplo</span> <button type="button" onclick="copiarDato('pago-banco')">Copiar</button></p>
+                    <p><strong>Titular:</strong> <span id="pago-titular">Juan Pérez</span> <button type="button" onclick="copiarDato('pago-titular')">Copiar</button></p>
+                </div>
+
+                <div class="pago-binance">
+                    <p><strong>Binance:</strong> <a href="mailto:correo@binance.com" id="binance-email">correo@binance.com</a></p>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <label for="comprobante">Comprobante de pago (imagen)</label>
+                <input type="file" id="comprobante" name="comprobante" accept="image/*" required>
+            </div>
+
+            <button id="submit-formulario" type="submit">Enviar registro</button>
+
+        </form>
+
+      </section>
+      <!-- FIN del FORMULARIO DE DATOS PERSONALES Y REGISTRO DE PAGO -->
+
+      <!-- VERIFICADOR DE BOLETOS -->
+       <section id="verificador" class="verificador-section">
+
+        <h2>Verificador de Boletos</h2>
+
+        <form id="form-verificador" autocomplete="off">
+
+            <div class="form-group">
+                <label for="verificar-boleto">Buscar por Teléfono o Boleto</label>
+                <input type="number" id="verificar-boleto" name="verificar-boleto" min="0000" max="9999" placeholder="Teléfono o Boleto" required>
+            </div>
+
+            <button type="submit" id="btn-verificar">Verificar</button>
+
+        </form>
+
+        <div id="resultado-verificador"></div>
+
+       </section>
+       <!-- FIN del VERIFICADOR DE BOLETOS -->
+
+       <!-- FOOTER -->
+        <footer class="footer">
+
+            <div class="footer-content">
+
+                <div class="subsection">
+
+                    <h3>Secciones</h3>
+
+                    <a href="#top" class="subsection-text">Inicio</a>
+
+                    <a href="#boletos" class="subsection-text">Lista de Boletos</a>
+
+                    <a href="#verificador" class="subsection-text">Verificador de Boletos</a>
+
+                </div>
+
+                <div class="contacto">
+
+                    <h3>Contacto</h3>
+
+                    <div class="contacto-info">
+
+                        <img src="/assets/images/whatsapp.svg">
+                        <p id="admin-whatsapp">+58 422 1234567</p>
+
+                    </div>
+
+                </div>
+
+                <div class="footer-social">
+
+                    <h3>Siguenos</h3>
+
+                    <div class="social-icons-container">
+
+                        <a href="https://www.instagram.com/thepotii" target="_blank" title="Instagram">
+                            <img src="/assets/images/instagram.svg" alt="Instagram">
+                        </a>
+                        
+                        <a href="https://www.tiktok.com/@thepotii?is_from_webapp=1&sender_device=pc" target="_blank" title="TikTok">
+                            <img src="/assets/images/tik-tok.svg" alt="TikTok">
+                        </a>
+
+                    </div>
+
+                </div>
+                
+                <div class="marca-personal">
+
+                    <h4>Hecho con amor por</h4>
+
+                    <a href="https://www.instagram.com/thepotii" target="_blank" title="Instagram">
+                        <img src="/assets/images/the poti png-14.png" alt="Instagram">
+                    </a>
+
+                    <p>© 2025. Todos los derechos reservados.</p>
+
+                </div>
+
+            </div>
+
+        </footer>
+        <!-- FIN del FOOTER -->
+    
+    <script src="/script/boletos.js"></script>
+    <script src="/script/slider.js"></script>
+    <script src="/script/main-sorteo.js"></script>
+    <script src="/script/ultimos-sorteos-home.js"></script>
+
+    <script src="/script/verificador.js"></script>
+    <script src="/script/compra-boletos.js"></script>
+</body>
+</html>
