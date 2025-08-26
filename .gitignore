@@ -1,6 +1,7 @@
 # Archivos de entorno
 .env
 uploads/
+backend/
 
 # Dependencias de Node.js
 node_modules/
